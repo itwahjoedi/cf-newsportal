@@ -1,36 +1,57 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# ----------------------------------------------------------------------
+# 1. CORE IGNORES (Node.js, pnpm, Global)
+# ----------------------------------------------------------------------
+# Dependencies Folder
 /node_modules
-/.pnp
-.pnp.js
+/packages/**/node_modules
+pnpm-lock.yaml
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
+# Logging and Process
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+.npm/
+.yarn/
+.pnpm-store/
+.pnpm-debug.log*
 
-# local env files
-.env*.local
+# OS and Editor specific files
+.DS_Store
+.vscode/
+
+# ----------------------------------------------------------------------
+# 2. BUILD ARTIFACTS (TypeScript/tsup/Astro)
+# ----------------------------------------------------------------------
+# TypeScript build outputs (usually .js files from .ts source)
+/packages/**/dist/
+/packages/**/lib/
+
+# TypeScript caches and temp files
+**/*.tsbuildinfo
+
+# ----------------------------------------------------------------------
+# 3. CLOUDFLARE WORKER / WRANGLER IGNORES (api-worker)
+# ----------------------------------------------------------------------
+# Wrangler generates a .wrangler folder for local development artifacts
+.wrangler/
+/packages/api-worker/.wrangler/
+/packages/api-worker/.tsup/ # Tsup temp files
+
+# ----------------------------------------------------------------------
+# 4. FRONTEND / ASTRO IGNORES (frontend)
+# ----------------------------------------------------------------------
+# Astro generates the final output for Pages deployment here
+/packages/frontend/dist/
+
+# Astro dev cache/temp files
+.astro/
+/packages/frontend/.astro/
+
+# Vite/Vue cache (used inside Astro for Vue components)
+.vite/
+/packages/frontend/.vite/
+
+# ----------------------------------------------------------------------
+# 5. ENVIRONMENT VARIABLES AND SECRETS
+# ----------------------------------------------------------------------
+# Contains secrets, API tokens, and local configuration
 .env
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+.env.*
